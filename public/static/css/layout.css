@@ -1,0 +1,53 @@
+body{
+    background-color:#6FC1FF!important;
+}
+.header__main .nav__main{
+    display:flex;
+    width:100%;
+    justify-content: space-around;
+    align-items: center;
+    background-color:white;
+    padding:15px;
+    
+}
+
+.header__main .nav__main .nav-item--main{
+    width:30%;
+}
+
+.header__main .nav__main .nav-item{
+    width:70%;
+    display:flex;
+    justify-content: space-around;
+}
+
+.nav-item li{
+    list-style: none;
+    color:#6FC1FF;
+}
+.nav-item li a{
+    font-weight: 700;
+}
+/* Area de posts */
+.posts-area{
+    width:80%;
+    margin:0 auto;
+}
+
+.post__descriptions{
+    padding:15px;  
+}
+
+.filter-area{
+    width:80%;
+    margin:0 auto;
+    background-color:white; 
+    margin-bottom: 3%;
+    padding:15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+.post{
+    background-color:white;
+    width:100%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
