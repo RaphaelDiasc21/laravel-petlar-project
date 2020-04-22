@@ -9,14 +9,14 @@ class PerdidosController extends Controller
 {
     public function index(PostsService $postsService, Request $request)
     {
-        $posts = $postsService->getPosts($request,'Perdidos');
-        return view('posts-perdidos', compact('posts'));
+        $posts = $postsService->getPosts($request,'perdidos');
+        return view('posts/posts',['posts'=>$posts,'tipo'=>'perdidos']);
     }
 
     public function filterPosts(Request $request)
     {
         $postsService = new PostsService();
         $posts = $postsService->filterPost($request->input('animal'),$request->input('cidade'), 'Perdidos',$request);
-        return view('posts-perdidos', compact('posts'));
+        return view('posts/posts',['posts'=>$posts,'tipo'=>'perdidos']);
     }
 }

@@ -1,4 +1,5 @@
 /******/ (function(modules) { // webpackBootstrap
+          require('bootstrap-material-design');
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/

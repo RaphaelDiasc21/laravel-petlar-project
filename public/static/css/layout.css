@@ -1,12 +1,24 @@
-body{
-    background-color:#6FC1FF!important;
+@font-face{
+    font-family: baloo-regular;
+    src:url("/static/fonts/BalooDa2-Regular.ttf");
 }
+
+@font-face{
+    font-family: baloo-medium;
+    src:url("/static/fonts/BalooDa2-Medium.ttf");
+}
+
+@font-face{
+    font-family: baloo-bold;
+    src:url("/static/fonts/BalooDa2-SemiBold.ttf");
+}
+
 .header__main .nav__main{
     display:flex;
     width:100%;
     justify-content: space-around;
     align-items: center;
-    background-color:white;
+    background-color:#00599E;
     padding:15px;
     
 }
@@ -16,21 +28,33 @@ body{
 }
 
 .header__main .nav__main .nav-item{
-    width:70%;
-    display:flex;
+    width: 70%;
+    display: flex;
     justify-content: space-around;
+    margin: 0;
 }
 
 .nav-item li{
     list-style: none;
-    color:#6FC1FF;
+    color:white;
 }
 .nav-item li a{
     font-weight: 700;
+    color:white;
+}
+.box-advice{
+    background-color: white;
+    width: 100%;
+    margin:0 auto;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 /* Area de posts */
 .posts-area{
-    width:80%;
+    width:50%;
     margin:0 auto;
 }
 
@@ -39,15 +63,52 @@ body{
 }
 
 .filter-area{
-    width:80%;
+    width:100%;
     margin:0 auto;
     background-color:white; 
-    margin-bottom: 3%;
-    padding:15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    background-color:rgb(248, 205, 163);
+    padding:2%;
+}
+.filter-area .filter-wrapper{
+    width: 60%;
+    margin: 0 auto;
 }
 .post{
     background-color:white;
     width:100%;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    padding:10px;
+}
+
+.post h2{
+    font-family: "baloo-bold";
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-image: none!important;
+    width: 31px!important;
+    height: 37px!important;
+    opacity: 1!important;
+    outline: black;
+    background-size: 100%, 100%;
+    border-radius: 62%;
+    background-image: none;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
+    background-color: white!important;
+}
+
+.carousel-control-next-icon:after
+{
+    content: '>';
+    font-size: 23px;
+    font-weight: 700;
+    color: red;
+}
+
+.carousel-control-prev-icon:after {
+    content: '<';
+    font-size: 23px;
+    font-weight: 700;
+    color: red;
 }

@@ -10,14 +10,14 @@ class EncontradosController extends Controller
 {
     public function index(PostsService $postService,Request $request)
     {
-        $posts = $postService->getPosts($request, 'Encontrados');
-        return view('posts-encontrados', compact('posts'));
+        $posts = $postService->getPosts($request, 'encontrados');
+        return view('posts/posts',['posts'=>$posts,'tipo'=>'encontrados']);
     }
 
     public function filterPosts(Request $request)
     {
         $postsService = new PostsService();
         $posts = $postsService->filterPost($request->input('animal'),$request->input('cidade'), 'Encontrados',$request);
-        return view('posts-encontrados', compact('posts'));
+        return view('posts/posts',['posts'=>$posts,'tipo'=>'encontrados']);
     }
 }

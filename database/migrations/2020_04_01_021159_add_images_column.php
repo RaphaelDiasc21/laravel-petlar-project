@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class PostsImage extends Migration
+class AddImagesColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class PostsImage extends Migration
      */
     public function up()
     {
-        Schema::create('images',function(Blueprint $table){
-            $table->bigIncrements('id');
-            $table->string('url');
-            $table->bigInteger('post_id')->unsigned();
-            $table->foreign('post_id')->references('id')->on('posts');
+        Schema::table('posts', function (Blueprint $table) {
+           $table->text('images')->nullable();
+           
         });
     }
 
@@ -28,6 +26,8 @@ class PostsImage extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropColumn('images');
+        });
     }
 }

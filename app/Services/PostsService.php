@@ -5,10 +5,48 @@
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
-
+use App\Post;
 
 class PostsService
     {
+        public function createPost(Request $request)
+        {   
+            ValidationFormService::postValidation($request);
+            $post = new Post();
+            $post->titulo = $request->input("titulo");
+            $post->descricao = $request->input("descricao");
+            $post->tipo = $request->input("tipo");
+            $post->animal = $request->input("animal");
+            $post->cidade = $request->input("cidade");
+            $post->user_id = $request->input("user_id");
+
+            $photos_arr = []; 
+            
+            foreach($request->file('foto') as $foto){
+                
+                $photo_uploaded = \Cloudinary\Uploader::upload($foto);
+
+                $url = $photo_uploaded["secure_url"];
+                
+                $image_address = $this->getMainAddress($url);
+                array_push($photos_arr,$image_address);
+            }
+
+            $images = implode(',',$photos_arr);
+
+            $post->images = $images;
+
+            $post->save();
+            
+            return $post;
+        }
+
+        private function getMainAddress($url)
+        {
+            $upload_picture_url_pos = strpos(strtolower($url), 'upload', 0);
+            return substr($url,($upload_picture_url_pos + strlen('upload')));
+        }
+
         public function filterPost($animal,$cidade,$tipo, Request $request)
         {
             $sql = "SELECT u.nome, u.email,
@@ -20,45 +58,22 @@ class PostsService
 
             $posts = DB::select( DB::raw($sql),[$tipo,$cidade,$animal]);
 
-            $paginator = $this->getPaginacao($posts,$request);
-            return $paginator;
+            //$paginator = $this->getPaginacao($posts,$request);
+            //return $paginator;
         }
 
         public function getPosts(Request $request, $tipo)
-        {
-                $sql = "SELECT u.nome, u.email,
-                p.titulo, p.tipo, p.cidade, p.descricao, p.animal,p.id
-                FROM usuarios u
-                INNER JOIN posts p 
-                ON p.user_id = u.id 
-                WHERE p.tipo = ?";
+        {       
+                $posts =  DB::table('posts')
+                ->join('usuarios','posts.user_id','=','usuarios.id')
+                ->select('posts.id','posts.titulo','posts.tipo','posts.cidade','posts.descricao','posts.animal','posts.images','usuarios.nome','usuarios.email')
+                ->where('posts.tipo',$tipo)
+                ->paginate(9); // Buscando os models postss
 
-                $posts = DB::select( DB::raw($sql),[$tipo]); // Buscando os models postss
 
-                $paginator = $this->getPaginacao($posts, $request);
-                return $paginator; // Retorno o mesmo
-        }
-
-        public function getPaginacao($posts, Request $request)
-        {
-            $posts_finais = []; // Inicializando variavel que irá receber os posts com finais, Bindando com as respectivas fotos
-
-            foreach($posts as $post){
-
-                $posts_images = DB::select( DB::raw("SELECT url FROM images where post_id = ?"),[$post->id]);
-                $post_array = (array) $post; // Transformo o Objeto post em um array para adicionar a propriedade de fotos
-                $post_array["images_url"] = (array) $posts_images; // Atribuo o array de url das fotos a uma nova chave do array trnaformado
-
-                $post = (object) $post_array; // Cast do array post para um objeto post
-                array_push($posts_finais,$post); // Adiciona na variavel
-            
-            }// Recebendo as fotos, ligando com os posts
-
-            $posts_finais_collection = collect($posts_finais); // Cast do array de posts convertidos para uma collection Laravel
-            $page = $request->input('page',1); // Recebo qual página está sendo requerida no cliente
-            $chunk = $posts_finais_collection->forPage($page,10)->all(); //  Gero uma página baseada na collection (Laravel faz isso behind the scenes)
-            $paginator = new LengthAwarePaginator($chunk,count($posts_finais),10, $page); // Instancio um objeto lenghtAwarePaginator
-
-            return $paginator;
+                foreach($posts as &$post){
+                    $post->images = explode(",",$post->images);
+                }
+                return $posts; // Retorno o mesmo
         }
     }

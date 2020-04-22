@@ -10,6 +10,6 @@
     Email:<input type="text" name="email" />
     Senha:<input type="password" name="senha" />
     Confirmar senha:<input type="password" name="senha_confirmation" />
-    <button type="submit">Cadastrar</button>
+    <button class="btn btn-raised btn-primary" type="submit">Cadastrar</button>
 </form>
 @endsection

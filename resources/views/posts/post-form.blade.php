@@ -3,11 +3,11 @@
 @section('content')
 
     <h1>Postar post</h1>
-    <div class="container" style="background-color: white;">
+    <div id="post-form-container" class="container" style="background-color: white;">
     @foreach($errors->all() as $error)
         <div class="alert alert-danger">{{$error}}</div>
     @endforeach
-    <form class="form-group" action="{{route('post.index')}}" method="POST" enctype="multipart/form-data">
+    <form id="post-form" class="form-group" action="{{route('post.index')}}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <input type="hidden" name="user_id" value="{{Session::get('id')}}"/>
@@ -47,4 +47,5 @@
 
 @section('scripts')
     <script src="{{url('static/js/cidades.js')}}"></script>
+    <script src="{{url('js/loader.js')}}"></script>
 @endsection

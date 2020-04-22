@@ -7,8 +7,11 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="{{url('static/css/layout.css')}}" rel="stylesheet">
         <link href="{{url('static/css/app.css')}}" rel="stylesheet">
+
+        <script src="https://kit.fontawesome.com/5e1b8ac4b2.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <header class="header__main">
@@ -56,9 +59,7 @@
                  </ul>
             </nav>
         </header>
-        <div class="container">
             @yield('content')
-        </div>
         <script src="{{url('js/jquery.mobile-1.4.5.min.js')}}" ></script>
         <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

@@ -10,15 +10,14 @@ class AdocoesController extends Controller
 {
     public function index(PostsService $postService,Request $request)
     {
-        $posts = $postService->getPosts($request,'Adocoes');
-        
-        return view('posts-adocoes',compact('posts'));
+        $posts = $postService->getPosts($request,'adocoes');
+                return view('posts/posts',['posts'=>$posts,'tipo'=>'adocoes']);
     }
 
     public function filterPosts(Request $request)
     {
         $postsService = new PostsService();
         $posts = $postsService->filterPost($request->input('animal'),$request->input('cidade'), 'Adocoes',$request);
-        return view('posts-adocoes',compact('posts'));
+                return view('posts/posts',['posts'=>$posts,'tipo'=>'adocoes']);
     }
 }
